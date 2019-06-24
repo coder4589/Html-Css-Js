@@ -1,0 +1,106 @@
+<textarea id="TA_1"> <!-- _________________ (Html) ____________________ -->
+
+<!DOCTYPE html>
+
+####Unique_Id=200####
+
+####x=xxx#### ####y=yyy#### ####z=zzz####
+
+####Text=<br>
+A = aaa A ####_ ####__ (Pos-Escaped with "_")<br>
+B = bbb B ####_ ####__ (Pos-Escaped with "_")<br>
+C = ccc C ####_ ####__ (Pos-Escaped with "_")<br>
+----------####_Text####_ (Pos-Escaped with "_")<br>
+####
+
+>>>> ####Unique_Id#### _ ####++Unique_Id#### ####++Unique_Id#### ####++Unique_Id#### <<<<
+<br>
+>>>> ####Lol#### _ ####++Lol#### ####++Lol#### ####++Lol#### <<<<
+<br>
+>>>> ####Lol#### _ ####Test#### _ ####Game#### <<<<
+<br>
+>>>> ####x#### ####y#### ####z#### <<<<
+<br>
+>>>> ####Text#### <<<<
+<br>
+####_++Unique_Id####_ --- ####_++Lol####_ (Pos-Escaped with "_")
+
+<style> #El_####++Unique_Id#### {background-color: coral;} #El_####Unique_Id#### p {color:red;}  </style>
+<div id="El_####Unique_Id####"> 
+
+<p>1</p> <p>2</p> <p>3</p>
+
+    <style> #El_####++Unique_Id#### {background-color: blue;} #El_####Unique_Id#### p {color:white;}  </style>
+    <div id="El_####Unique_Id####">
+
+    <p>a</p> <p>b</p> <p>c</p>
+
+              <style> #El_####++Unique_Id#### {background-color: black;} #El_####Unique_Id#### p {color:green;}  </style>
+              <div id="El_####Unique_Id####">
+              <p>x</p>
+              <p>y (Preprocessed) => ####Unique_Id#### , ####++Unique_Id####, ####++Unique_Id####, ####Unique_Id####</p>
+              <p>z (Pos_Escaped with "_") => ####_Unique_Id####_ , ####_++Unique_Id####_, ####_++Unique_Id####_ , ####_Unique_Id####_ </p>
+              </div>
+
+    <p>d</p> <p>e</p> <p>f</p>
+
+    </div>
+
+<p>4</p> <p>5</p> <p>6</p>
+
+</div>
+
+</textarea>
+
+<script>   //_____________________ (Preprocessor) _ <Pre-Edit the above Html code> ________________________
+
+Html_Code = document.getElementById("TA_1").value;
+
+Preprocessor_Object = [];
+
+Html_Code = Html_Code.replace(/####(?!_)([^]+?)####(?!_)/g, function(m0, m1){
+
+        //"####(?!_)", match any "####" string that does not have a "_" char at its right!
+
+        //"[^]+?", match 1 or more characters until the next "####" string without a "_" char at its right is found!
+
+        //unlike ".", "[^]" can match new line characters such as "carriage return", "line feed", etc
+
+
+        if ( Found = m1.match(/^\+\+([^]*)/) ){    //______________________________________________
+
+            //"^\+\+", if the string begins with a "++" ("+" must be escaped with "\")
+
+	if ( isNaN(Preprocessor_Object[Found[1]]) ){Preprocessor_Object[Found[1]] = 0};
+
+            //isNaN() – Stands for “is Not a Number”, if variable is not a number, it return true, else return false.
+
+        return ++Preprocessor_Object[Found[1]]
+ 
+        };
+
+        if ( Found = m1.match(/([^]*?)=([^]*)/) ){    //______________________________________________
+
+            //"[^]*?", match 0 or more characters until an "=" character is found!
+
+        Preprocessor_Object[Found[1]] = Found[2];
+
+	return '';
+
+        };
+
+if (typeof Preprocessor_Object[m1] === 'undefined'){return ''};
+
+return Preprocessor_Object[m1];
+
+});
+
+Html_Code = Html_Code.replace(/####_/g, '####');     //"g" replace all
+
+setTimeout(function(){document.write(Html_Code); document.close();}, 1);
+//Since "document.write()" is called 1 milliseconds after DOM load, all the document will be re-written
+//Don't use "window.onload" here, use "SetTimeout" instead!
+//If "document.write" content above contains "window.onload", it will not work if another "window.onload" is used here!
+//It seems that after re-writing DOM, "document.write()" does not call "document.close()", so it need to be called manually! 
+
+</script>
