@@ -1,0 +1,71 @@
+<script>        //____________________ (Get Layout File) ________________________
+
+var request = new XMLHttpRequest();
+request.open('GET', 'Layout.html', false);     // "false" makes the request synchronous (synchronous is stupidly deprecated since 2014, but believe me, it will never be removed!)
+request.send();                                 //synchronous request ensures that lines below will be executed only after the server returns a response to this request! 
+
+var Layout = request.responseText;
+
+</script>
+
+<textarea id="Page_Content"> <!-- _______________ (Page Content) _________________ -->
+
+<div style="background-color: green;">
+
+This is the Home Page (Welcome)  <br>
+<br>
+
+(These ones will not ne replaced!!!) #Sub_Title# , #Page_Content# , #Page_End# (These ones will not ne replaced!!!)<br><br>
+
+<textarea> 1  #Sub_Title# <&#47;textarea> <textarea> 2 #Page_Content# <&#47;textarea> <textarea> 3 #Page_End# <&#47;textarea>
+
+<script>  
+document.write('<br><br>' + Date());
+window.onload = function() {alert('Lol - "window.onload" Complete');};
+</script> 
+
+</div>
+
+</textarea>
+
+<textarea id="Page_End"> <!-- _______________ (Page End) _________________ -->
+
+<div style="background-color: red;">
+
+<textarea> 4  #Sub_Title# <&#47;textarea> <textarea> 5 #Page_Content# <&#47;textarea> <textarea> 6 #Page_End# <&#47;textarea>
+
+<br><br> Javascript PHP alike Html Preprocessing End!!!
+
+<script> alert('Page End Reached!!!'); </script> 
+
+</div>
+
+</textarea>
+
+<script>        //_______________ (Preprocessor) - <Merge this page content to "layout" content and re-write DOM> _______________
+
+Layout = Layout.replace(/#(?!_)([\w\d_-]+?)#/g, function(m0, m1){        //"g" to match all occurrences
+
+    //m0 = all match, m1 = first subpattern match
+    //"#(?!_)", match a "#" character that does not have a "_" character at its right
+    //"([\w\d_-]+?)#", match 1 or more letters\digits\_\- until a "#" character is found! 
+
+if (m1 === "Sub_Title"){return "- Home Page"};
+
+if (m1 === "Page_Content") {return document.getElementById("Page_Content").value};
+
+if (m1 === "Page_End") {return document.getElementById("Page_End").value};
+
+return '';     //returns a blank string (prevents 'undefined' return)
+
+});
+
+Layout = Layout.replace(/#_/g, "#");      //"g" replace all occurrences 
+
+setTimeout(function(){document.write(Layout); document.close();}, 1);
+//Since "document.write()" is called 1 milliseconds after DOM load, all the document will be re-written
+//Don't use "window.onload" here, use "SetTimeout" instead!
+//If "document.write" content above contains "window.onload", it will not work if another "window.onload" is used here!
+//It seems that after re-writing DOM, "document.write()" does not call "document.close()", so it need to be called manually! 
+
+</script>
