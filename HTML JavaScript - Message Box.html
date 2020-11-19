@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+1
+1<br>
+1<br>
+<input type="button" value="Haha" onclick='alert("Haha\n\n\n\n\n\n\n\n12")'>
+<input type="button" value="Show Message Box" onclick='document.getElementById("Message_Box_Element").style.display = "table";'>
+<br><br> <textarea id="User_Input" rows="10" style="width:50%">Test <br> 1 <br> 2 <br> 3</textarea> <br>
+<input type="button" value='Message_Box (Text)' onclick='Message_Box(document.getElementById("User_Input").value)'>
+<input type="button" value='Message_Box (html)' onclick='Message_Box(document.getElementById("User_Input").value, "html")'>
+<input type="button" value='Message_Box (on_close)' onclick='Message_Box(document.getElementById("User_Input").value, "", function(){alert("Closed_1"); alert("Closed_2")})'>
+<br><br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1
+<input type="button" value="Show Message Box" onclick='document.getElementById("Message_Box_Element").style.display = "table";'>
+<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1end
+<input type="button" value="Show Message Box" onclick='document.getElementById("Message_Box_Element").style.display = "table";'>
+<textarea rows="100"></textarea>
+
+<table id="Message_Box_Element" style="text-align:center; display:none; width:100vw; height:100vh; position:fixed; top:0px; left:0px; background:rgba(0,0,0,0.6);">
+<tr> <td> <!-- "Table" in use because it can vertically center "Div" elements -->
+
+<div style="background:white; display:inline-block;">
+<!-- "inline-block" forces div to fit its content -->
+
+    <div style="margin:20px;">
+
+        <div id="Message_Box_Element_Content" Style="max-width:calc(100vw - 200px); max-height:calc(100vh - 200px); overflow:auto;">
+        This is an Awesome Message Box!
+        <br><Textarea cols="10" rows="10"> </textarea><br>
+        xxx
+        </div>
+        
+    <br>
+
+    <input type="button" value="Close" onclick='Message_Box_Close()'>
+
+    </div>
+
+</div></td></tr></table>
+
+<script>
+
+function Message_Box(String, Type, On_Close){     //________________________________________
+
+Message_Box_Element_On_Close = On_Close;
+
+    if (Type === "html"){document.getElementById("Message_Box_Element_Content").innerHTML = String;
+    }else{document.getElementById("Message_Box_Element_Content").textContent = String;}
+
+document.getElementById("Message_Box_Element").style.display = "table"
+}
+
+function Message_Box_Close(){       //____________________________________
+document.getElementById("Message_Box_Element").style.display = "none"
+window["Message_Box_Element_On_Close"]();       //calls the "Message_Box_Element_On_Close" function (if defined)
+}
+
+</script>
