@@ -5,6 +5,11 @@
 1<br>
 <input type="button" value="Haha" onclick='alert("Haha\n\n\n\n\n\n\n\n12")'>
 <input type="button" value="Show Message Box" onclick='document.getElementById("Message_Box_Element").style.display = "table";'>
+<input type="text" value='Press "Enter" here' onkeypress='if (event.key === "Enter"){Message_Box("Test")}'>
+<input type="text" value='Press "Enter" here' onkeydown='if (event.key === "Enter"){Message_Box("Test")}'>
+<input type="text" value='Press "Enter" here' onkeyup='if (event.key === "Enter"){Message_Box("Test")}'>
+<br><br> - Press keyboard "P" key to find out which elemnt is focused!
+<script> addEventListener("keyup", function(event){if(event.key === "p"){alert(document.activeElement)}}); </script>
 <br><br> <textarea id="User_Input" rows="10" style="width:50%">Test <br> 1 <br> 2 <br> 3</textarea> <br>
 <input type="button" value='Message_Box (Text)' onclick='Message_Box(document.getElementById("User_Input").value)'>
 <input type="button" value='Message_Box (html)' onclick='Message_Box(document.getElementById("User_Input").value, "html")'>
@@ -31,7 +36,7 @@
         
     <br>
 
-    <input type="button" value="Close" onclick='Message_Box_Close()'>
+    <input id="Message_Box_Element_Close_Button" type="button" value="Close" onclick='Message_Box_Close()'>
 
     </div>
 
@@ -46,12 +51,23 @@ Message_Box_Element_On_Close = On_Close;
     if (Type === "html"){document.getElementById("Message_Box_Element_Content").innerHTML = String;
     }else{document.getElementById("Message_Box_Element_Content").textContent = String;}
 
-document.getElementById("Message_Box_Element").style.display = "table"
+Message_Box_Element_Previous_Focused_Element = document.activeElement;
+
+    setTimeout(function(){
+    document.getElementById("Message_Box_Element").style.display = "table";
+    document.getElementById('Message_Box_Element_Close_Button').focus();
+    }, 125);        //"setTimeout" prevents problems with "onkeypress", "onkeydown" and "onkeyup"
+
 }
 
 function Message_Box_Close(){       //____________________________________
-document.getElementById("Message_Box_Element").style.display = "none"
-window["Message_Box_Element_On_Close"]();       //calls the "Message_Box_Element_On_Close" function (if defined)
+
+    setTimeout(function(){
+    document.getElementById("Message_Box_Element").style.display = "none";
+    Message_Box_Element_Previous_Focused_Element.focus();
+    window["Message_Box_Element_On_Close"]();       //calls the "Message_Box_Element_On_Close" function (if defined)
+    }, 125);        //"setTimeout" prevents problems with "onkeypress", "onkeydown" and "onkeyup"
+
 }
 
 </script>
