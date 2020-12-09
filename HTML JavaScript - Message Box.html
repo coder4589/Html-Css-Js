@@ -4,54 +4,160 @@
 1<br>
 1<br>
 <input type="button" value="Haha" onclick='alert("Haha\n\n\n\n\n\n\n\n12")'>
-<input type="button" value="Show Message Box" onclick='document.getElementById("Message_Box_Element").style.display = "table";'>
-<input type="text" value='Press "Enter" here' onkeypress='if (event.key === "Enter"){Message_Box("Test")}'>
-<input type="text" value='Press "Enter" here' onkeydown='if (event.key === "Enter"){Message_Box("Test")}'>
-<input type="text" value='Press "Enter" here' onkeyup='if (event.key === "Enter"){Message_Box("Test")}'>
-<br><br> - Press keyboard "P" key to find out which elemnt is focused!
-<script> addEventListener("keyup", function(event){if(event.key === "p"){alert(document.activeElement)}}); </script>
-<br><br> <textarea id="User_Input" rows="10" style="width:50%">Test <br> 1 <br> 2 <br> 3</textarea> <br>
-<input type="button" value='Message_Box (Text)' onclick='Message_Box(document.getElementById("User_Input").value)'>
-<input type="button" value='Message_Box (html)' onclick='Message_Box(document.getElementById("User_Input").value, "html")'>
-<input type="button" value='Message_Box (on_close)' onclick='Message_Box(document.getElementById("User_Input").value, "", function(){alert("Closed_1"); alert("Closed_2")})'>
+<input type="button" value="Show Message Box (alt + s)" onclick='Message_Box("", "Show")'>
+<input type="button" value="Clear Message Box (alt + c)" onclick='Message_Box("", "Clear")'>
+<input type="text" value='Press "Enter" here' onkeypress='if (event.key === "Enter"){Message_Box(this.value)}'>
+<input type="text" value='Press "Enter" here' onkeydown='if (event.key === "Enter"){Message_Box(this.value)}'>
+<input type="text" value='Press "Enter" here' onkeyup='if (event.key === "Enter"){Message_Box(this.value)}'>
+<br>
+<textarea id="User_Input" rows="5" style="width:50%; "><br><span style="color:red;">Test</span><br> </textarea>
+<br>
+- Press keyboard "p" key to find out which elemnt is focused!(<span id="Focused_El" style="color:Green;"></span>) <br>
+<br>
+- Press keyboard "s" or "h" key to "show" or "hide" Message_Box() "Close" button! <br>
+<br>
+- Press keyboard "i" or "k" key for Message_Box(AppendB or AppendE text) <br>
+- Press keyboard "o" or "L" key for Message_Box(AppendB or AppendE html) <br>
+- Press keyboard "u" or "j" key for Message_Box(AppendB or AppendE html scb or hcb) <br>
+<br>
+- Press keyboard "alt" + ("9" or "0") for Message_Box(text or html) <br>
+- Press keyboard "alt" + ("7" or "8") for Message_Box(text or html hcb10) <br>
+<script>
+U_I_EL = document.getElementById("User_Input");
+addEventListener("keyup", function(e){if(e.key === "p"){document.getElementById("Focused_El").innerText = document.activeElement;}});
+addEventListener("keydown", function(e){if(e.key === "s" && e.altKey){Message_Box("","Show"); e.preventDefault()}});
+addEventListener("keydown", function(e){if(e.key === "c" && e.altKey){Message_Box("","Clear"); e.preventDefault()}});
+addEventListener("keyup", function(event){if(event.key === "s"){Message_Box("","scb", "Skip")}});
+addEventListener("keyup", function(event){if(event.key === "h"){Message_Box("","hcb", "Skip")}});
+addEventListener("keyup", function(event){if(event.key === "u"){Message_Box(U_I_EL.value, "AppendB html scb")}});
+addEventListener("keyup", function(event){if(event.key === "j"){Message_Box(U_I_EL.value, "AppendE html hcb")}});
+addEventListener("keyup", function(event){if(event.key === "i"){Message_Box(U_I_EL.value, "AppendB")}});
+addEventListener("keyup", function(event){if(event.key === "k"){Message_Box(U_I_EL.value, "AppendE")}});
+addEventListener("keyup", function(event){if(event.key === "o"){Message_Box(U_I_EL.value, "AppendB html")}});
+addEventListener("keyup", function(event){if(event.key === "l"){Message_Box(U_I_EL.value, "AppendE html")}});
+addEventListener("keyup", function(e){if(e.key === "9" && e.altKey){Message_Box(U_I_EL.value); e.preventDefault()}});
+addEventListener("keyup", function(e){if(e.key === "0" && e.altKey){Message_Box(U_I_EL.value, "html"); e.preventDefault()}});
+addEventListener("keyup", function(e){if(e.key === "7" && e.altKey){Message_Box(U_I_EL.value + "<br>(wait 10 seconds)", "text hcb10"); e.preventDefault()}});
+addEventListener("keyup", function(e){if(e.key === "8" && e.altKey){Message_Box(U_I_EL.value + "<br>(wait 10 seconds)", "html hcb10"); e.preventDefault()}});
+addEventListener("keyup", function(e){if(e.key === "1" && e.altKey){Message_Box("", "On_Close", function(){alert("Oops!")}); e.preventDefault()}});
+addEventListener("keyup", function(e){if(e.key === "2" && e.altKey){Message_Box("", "On_Close", ""); e.preventDefault()}});
+
+addEventListener("keyup", function(e){if(e.key === "3" && e.altKey){Message_Box("Clear, Append Text and html, Show", "Clear AppendB"); 
+Message_Box(U_I_EL.value, "AppendB html"); Message_Box(U_I_EL.value, "AppendE html"); Message_Box(U_I_EL.value, "AppendB"); Message_Box(U_I_EL.value, "AppendE scb"); 
+e.preventDefault()}});
+addEventListener("keyup", function(e){if(e.key === "4" && e.altKey){Message_Box("Clear, Append Text and html, Show", "Clear AppendB"); 
+Message_Box(U_I_EL.value, "AppendB html"); Message_Box(U_I_EL.value, "AppendE html"); Message_Box(U_I_EL.value, "AppendB"); Message_Box(U_I_EL.value, "AppendE hcb"); 
+e.preventDefault()}});
+addEventListener("keyup", function(e){if(e.key === "5" && e.altKey){Message_Box("Clear, Append Text and html, Show", "Clear AppendB"); 
+Message_Box(U_I_EL.value, "AppendB html"); Message_Box(U_I_EL.value, "AppendE html"); Message_Box(U_I_EL.value, "AppendB"); Message_Box(U_I_EL.value, "AppendE Show"); 
+e.preventDefault()}});
+addEventListener("keyup", function(e){if(e.key === "6" && e.altKey){Message_Box("Clear, Append Text and html, Show", "Clear AppendB"); 
+Message_Box(U_I_EL.value, "AppendB html"); Message_Box(U_I_EL.value, "AppendE html"); Message_Box(U_I_EL.value, "AppendB"); Message_Box(U_I_EL.value, "AppendE Show hcb"); 
+e.preventDefault()}});
+
+</script>
+<input type="button" value='Message_Box (Text)' onclick='Message_Box(U_I_EL.value)'>
+<input type="button" value='Message_Box (html)' onclick='Message_Box(U_I_EL.value, "html")'>
+<input type="button" value='Message_Box (on_close)' onclick='Message_Box(U_I_EL.value, "", function(){alert("Closed_1"); alert("Closed_2")})'>
+<input type="button" value='Message_Box (on_close wait 10s)' 
+onclick='Message_Box(U_I_EL.value + "<br>(wait 10 seconds)", "html hcb10", function(){alert("Closed_3"); alert("Closed_4")})'>
+<br>
+<input type="button" value='Message_Box (Wait)' onclick='Message_Box(U_I_EL.value, "Wait")'>
+<input type="button" value='Message_Box (Wait hcb "hide close button")' onclick='Message_Box(U_I_EL.value, "Wait hcb");'>
+<input type="button" value='Message_Box (Wait hcb10 "hide close button for 10 seconds")' onclick='Message_Box(U_I_EL.value + "<br><br>(Wait 10 seconds!)", "Wait hcb10");'>
+<br>
+<input type="button" value='Message_Box (On_Close alert("Oops")) _ (alt + 1)' onclick='Message_Box("", "On_Close", function (){alert("Oops")})'>
+<input type="button" value='Message_Box (Clear On_Close) _ (alt + 2)' onclick='Message_Box("", "On_Close", "")'>
+<input type="button" value='Message_Box (onclose Skip Test)' onclick='Message_Box("onclose Skip Test", "", "Skip")'>
+<br>
+<input type="button" value='Message_Box (Clear, Append Text and html, Show) _ (alt + 5)' 
+onclick='Message_Box("Clear, Append Text and html, Show", "Clear AppendB"); Message_Box(U_I_EL.value, "AppendB html");
+Message_Box(U_I_EL.value, "AppendE html"); Message_Box(U_I_EL.value, "AppendB"); Message_Box(U_I_EL.value, "AppendE Show");'>
+
+<input type="button" value='Message_Box (Clear, Append Text and html, Show hcb) _ (alt + 6)' 
+onclick='Message_Box("Clear, Append Text and html, Show", "Clear AppendB"); Message_Box(U_I_EL.value, "AppendB html");
+Message_Box(U_I_EL.value, "AppendE html"); Message_Box(U_I_EL.value, "AppendB"); Message_Box(U_I_EL.value, "AppendE Show hcb");'>
+<br>
+<input type="button" value='Message_Box (Clear, Append Text and html, scb) _ (alt + 3)' 
+onclick='Message_Box("Clear, Append Text and html, Show", "Clear AppendB"); Message_Box(U_I_EL.value, "AppendB html");
+Message_Box(U_I_EL.value, "AppendE html"); Message_Box(U_I_EL.value, "AppendB"); Message_Box(U_I_EL.value, "AppendE scb");'>
+
+<input type="button" value='Message_Box (Clear, Append Text and html, hcb) _ (alt + 4)' 
+onclick='Message_Box("Clear, Append Text and html, Show", "Clear AppendB"); Message_Box(U_I_EL.value, "AppendB html");
+Message_Box(U_I_EL.value, "AppendE html"); Message_Box(U_I_EL.value, "AppendB"); Message_Box(U_I_EL.value, "AppendE hcb");'>
+
 <br><br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1
-<input type="button" value="Show Message Box" onclick='document.getElementById("Message_Box_Element").style.display = "table";'>
+<input type="button" value="Show Message Box (alt + s)" onclick='Message_Box("", "Show")'>
 <br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1end
-<input type="button" value="Show Message Box" onclick='document.getElementById("Message_Box_Element").style.display = "table";'>
+<input type="button" value="Show Message Box (alt + s)" onclick='Message_Box("", "Show")'>
 <textarea rows="100"></textarea>
 
 <table id="Message_Box_Element" style="text-align:center; display:none; width:100vw; height:100vh; position:fixed; top:0px; left:0px; background:rgba(0,0,0,0.6);">
 <tr> <td> <!-- "Table" in use because it can vertically center "Div" elements -->
-
-<div style="background:white; display:inline-block;">
+<div style="background:white; display:inline-block; padding:15px;">
 <!-- "inline-block" forces div to fit its content -->
-
-    <div style="margin:20px;">
-
-        <div id="Message_Box_Element_Content" Style="max-width:calc(100vw - 200px); max-height:calc(100vh - 200px); overflow:auto;">
-        This is an Awesome Message Box!
-        <br><Textarea cols="10" rows="10"> </textarea><br>
-        xxx
-        </div>
-        
-    <br>
-
-    <input id="Message_Box_Element_Close_Button" type="button" value="Close" onclick='Message_Box_Close()'>
-
+    <div id="Message_Box_Element_Content" Style="max-width:calc(100vw - 200px); max-height:calc(100vh - 200px); overflow:auto;">
+    This is an Awesome Message Box!
+    <br><Textarea cols="10" rows="10"> </textarea><br>
+    xxx
     </div>
-
+    <input id="Message_Box_Element_Close_Button" type="button" value="Close" style="margin-top:15px;" onclick='Message_Box_Close()'>
 </div></td></tr></table>
 
 <script>
 
-function Message_Box(String, Type, On_Close){     //________________________________________
+function Message_Box(String, Options, On_Close){     //________________________________________
 
-Message_Box_Element_On_Close = On_Close;
+if (Options === undefined) {Options = ""};
 
-    if (Type === "html"){document.getElementById("Message_Box_Element_Content").innerHTML = String;
-    }else{document.getElementById("Message_Box_Element_Content").textContent = String;}
+var match;      //make variable local to function (to be used with "exec()" regex function!)
+
+if (Options === "On_Close"){Message_Box_Element_On_Close = On_Close; return}
+if (On_Close !== "Skip"){Message_Box_Element_On_Close = On_Close}
+
+    if (Options === "scb"){
+    try{clearTimeout(Message_Box_Element_scb_Timeout)}catch(Skip_Error_and_Continue){}
+    document.getElementById('Message_Box_Element_Close_Button').style.display = "inline";
+    document.getElementById('Message_Box_Element_Close_Button').focus();
+    return;
+    }
+
+    if (match = /^hcb(\d+)?$/.exec(Options)){       //"(\d+)?" the "?" makes the digits match optional
+    try{clearTimeout(Message_Box_Element_scb_Timeout)}catch(Skip_Error_and_Continue){}
+    document.getElementById('Message_Box_Element_Close_Button').blur();             //"blur()" remove focus
+    document.getElementById('Message_Box_Element_Close_Button').style.display = "none";
+    if (match[1] !== undefined){Message_Box_Element_scb_Timeout = setTimeout(function(){Message_Box("", "scb", "Skip")}, match[1] * 1000);}
+    return;
+    }
+
+    if (Options.match(/Clear/)){
+    document.getElementById("Message_Box_Element_Content").innerText = "";
+    document.getElementById("Message_Box_Element_Content").innerHTML = "";
+    if (Options === "Clear"){return}
+    }
+
+    if (Options.match(/Wait/)){
+    document.getElementById("Message_Box_Element_Content").innerHTML = 'Please, Wait!<br><img src="https://i.imgur.com/dF1o8QE.gif"><br>' + String;
+    }else if (Options.match(/Append/)){
+    var Append_Option;      //make varibale local to function
+    if (Options.match(/AppendB/)){Append_Option = "afterbegin"}else if (Options.match(/AppendE/)){Append_Option = "beforeend"}
+        if (Options.match(/html/)){document.getElementById("Message_Box_Element_Content").insertAdjacentHTML(Append_Option, String);
+        }else{document.getElementById("Message_Box_Element_Content").insertAdjacentText(Append_Option, String);}
+    if (!Options.match(/scb/) && !Options.match(/hcb/) && !Options.match(/Show/)){return};
+    }else if (Options.match(/Show/)){       //do nothing
+    }else{
+        if (Options.match(/html/)){document.getElementById("Message_Box_Element_Content").innerHTML = String;
+        }else{document.getElementById("Message_Box_Element_Content").innerText = String;}
+    }
+
+    if (match = /hcb(\d+)?/.exec(Options)){     //"(\d+)?" the "?" makes the digits match optional
+    Message_Box("", match[0], "Skip");
+    }else{Message_Box("", "scb", "Skip")}
+
+if ((Options.match(/Append/) && !Options.match(/Show/)) || document.getElementById("Message_Box_Element").style.display !== "none"){return}
 
 Message_Box_Element_Previous_Focused_Element = document.activeElement;
+Message_Box_Element_Previous_Focused_Element.blur();        //remove focus
 
     setTimeout(function(){
     document.getElementById("Message_Box_Element").style.display = "table";
@@ -65,7 +171,9 @@ function Message_Box_Close(){       //____________________________________
     setTimeout(function(){
     document.getElementById("Message_Box_Element").style.display = "none";
     Message_Box_Element_Previous_Focused_Element.focus();
-    window["Message_Box_Element_On_Close"]();       //calls the "Message_Box_Element_On_Close" function (if defined)
+    var Do_This = Message_Box_Element_On_Close;     //"var" makes variable local to function
+    Message_Box_Element_On_Close = "";
+    Do_This();       //calls the "Do_This" function (if defined)
     }, 125);        //"setTimeout" prevents problems with "onkeypress", "onkeydown" and "onkeyup"
 
 }
