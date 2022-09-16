@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<input id="Random_Code_min"        placeholder="min"        oninput="Generate_Random_Codes()" style="width:50px;">
+<input id="Random_Code_max"        placeholder="max"        oninput="Generate_Random_Codes()" style="width:50px;">
+<input id="Random_Code_lines"      placeholder="lines"      oninput="Generate_Random_Codes()" style="width:50px;">
+<input type="button" value="Generate" onclick="Generate_Random_Codes()"><br><br>
+<input id="Random_Code_characters" placeholder="characters" oninput="Generate_Random_Codes()" style="width:98%; text-align:center;" ><br><br>
+<textarea id="Random_Code_Output" rows="25" style="width:98%;" wrap="off"></textarea><br>
+<a href="https://straighttips.blogspot.com/2022/09/javascript-random-codes-generator.html" target="_blank">www.StraightTips.blogspot.com</a>
+
+<br><br>
+<textarea id="Random_Code_Output_2" rows="1" style="width:98%;" wrap="off" oninput="Get_Random_Code_Length()" placeholder="Paste random code here to get length!"></textarea><br>
+<input type="button" value="Random" onclick='Random_Code_Generate_Test()'>
+Length = <span id="Random_Code_Output_2_Length"></span>
+
+<br><br>
+<textarea id="Random_Code_Output_3" rows="25" style="width:98%;" wrap="off"></textarea>
+
+<br><br><br><br><br><br>
+
+<script>
+
+Generate_Random_Codes();
+
+Random_Code_Generate_Test();
+
+document.getElementById('Random_Code_Output_3').value = 
+Random_Code(5) + "\r\n" +
+Random_Code("5") + "\r\n" +
+Random_Code(10) + "\r\n" +
+Random_Code("10") + "\r\n" +
+Random_Code(100) + "\r\n" +
+Random_Code("200") + "\r\n" +
+Random_Code() + "\r\n" +
+Random_Code("") + "\r\n" +
+Random_Code("ttt") + "\r\n" +
+Random_Code(5, "") + "\r\n" +
+Random_Code(5, "ttt") + "\r\n" +
+Random_Code(8, 10) + "\r\n" +
+Random_Code(8, "10") + "\r\n" +
+Random_Code(50,51,2) + "\r\n" +
+Random_Code(100,101,"3") + "\r\n" +
+"";
+
+function Get_Random_Code_Length(){		//_________________________________________________________
+document.getElementById("Random_Code_Output_2_Length").innerHTML = document.getElementById("Random_Code_Output_2").value.length
+}
+
+function Random_Code_Generate_Test(){		//_________________________________________________________
+var Random_value = Random_Code(20, 30);
+document.getElementById("Random_Code_Output_2").value = Random_value
+document.getElementById("Random_Code_Output_2_Length").innerHTML = Random_value.length
+}
+
+function Generate_Random_Codes(){		//_________________________________________________________
+
+var min        = document.getElementById("Random_Code_min").value;
+var max        = document.getElementById("Random_Code_max").value;
+var lines      = document.getElementById("Random_Code_lines").value;
+var characters = document.getElementById("Random_Code_characters").value;
+
+document.getElementById("Random_Code_Output").value = Random_Code(min, max, lines, characters);
+}
+
+function Random_Code(min, max, lines, characters) {		//_______________________ v1.0 __________________________
+
+	//https://straighttips.blogspot.com/2022/09/javascript-random-codes-generator.html
+	//https://stackoverflow.com/a/1349426
+
+	//"!" + "Math.floor()", if can't round number DOWN to the nearest integer, user input is probably undefined, blank or not a number!
+	//"Math.floor()" is an ECMAScript1 (ES1) feature (JavaScript 1997), fully supported in all browsers
+
+if ( !(min = Math.floor(min)) ){min = 10}
+
+if ( !(max = Math.floor(max)) || max < min ){max = min}
+
+if ( !(lines = Math.floor(lines)) ){lines = 1}
+
+if (characters === undefined || characters.length < 1){characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'}
+
+var charactersLength = characters.length;
+
+var result = '';
+
+	var lines_index = 1;
+	while (true) {		//"true" infinite loop
+
+	var length = Math.floor(Math.random() * (max - min + 1) + min);		//The maximum is inclusive and the minimum is inclusive
+
+		for ( var i = 0; i < length; i++ ) {
+		result += characters.charAt(Math.floor(Math.random() * charactersLength));
+		}
+
+	if (++lines_index > lines){break}else{result += "\r\n"}
+	}
+
+return result;
+}
+
+
+</script>
